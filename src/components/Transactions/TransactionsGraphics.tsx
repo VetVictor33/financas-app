@@ -1,5 +1,5 @@
 
-export default function TransactionsGraphics() {
+export function TransactionsGraphics() {
   return (
     <div>TransactionsGraphics</div>
   )

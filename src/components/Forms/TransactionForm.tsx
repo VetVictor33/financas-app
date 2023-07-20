@@ -1,5 +1,5 @@
 
-export default function TransactionForm() {
+export function TransactionForm() {
   return (
     <div>TransactionForm</div>
   )

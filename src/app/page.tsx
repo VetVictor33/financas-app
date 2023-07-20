@@ -1,11 +1,14 @@
-import Header from '@/components/Header/Header'
-import Image from 'next/image'
-import Link from 'next/link'
+'use client'
+import { Header } from 'components'
+import { useNavbarContext } from 'contexts'
+import { HOME_CONTENT } from 'helpers'
 
 export default function Home() {
+  const { mainContent } = useNavbarContext()
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10">
+    <>
       <Header />
-    </main>
+    </>
   )
 }

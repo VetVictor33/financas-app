@@ -1,5 +1,5 @@
 
-export default function SigninForm() {
+export function SigninForm() {
   return (
     <div>SigninForm</div>
   )

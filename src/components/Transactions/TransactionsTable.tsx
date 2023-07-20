@@ -1,5 +1,5 @@
 
-export default function TransactionsTable() {
+export function TransactionsTable() {
   return (
     <div>TransactionsTable</div>
   )
