@@ -1,16 +1,170 @@
-export const data = {
-  user: {
-    id: 1,
-    username: 'Victor'
-  },
-  transactions: [
-    {
-      id: 1, title: 'Pagamento', category: 'Salário',
-      type: 'entrada', value: 5000_00, date: new Date('01/01/2023')
+export const mockData = [
+  {
+    user: {
+      id: 1,
+      username: 'Victor'
     },
-    {
-      id: 2, title: 'Pagamento', category: 'Salário',
-      type: 'entrada', value: 5000_00, date: new Date('02/01/2023')
-    }
-  ]
-}
+    transactions: [
+      {
+        id: 1,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 782500,
+        date: new Date('01/01/2023'),
+      },
+      {
+        id: 2,
+        user_id: 1,
+        category: 'Conta de luz',
+        type: 'saída',
+        value: 43900,
+        date: new Date('01/02/2023'),
+      },
+      {
+        id: 3,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 3185700,
+        date: new Date('01/03/2023'),
+      },
+      {
+        id: 4,
+        user_id: 1,
+        category: 'Multa no Detran',
+        type: 'saída',
+        value: 522800,
+        date: new Date('01/04/2023'),
+      },
+      {
+        id: 5,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 657600,
+        date: new Date('01/05/2023'),
+      },
+      {
+        id: 6,
+        user_id: 1,
+        category: 'Pensão das esposas',
+        type: 'saída',
+        value: 926200,
+        date: new Date('01/06/2023'),
+      },
+      {
+        id: 7,
+        user_id: 1,
+        category: 'Pensão das criança',
+        type: 'saída',
+        value: 756300,
+        date: new Date('01/07/2023'),
+      },
+      {
+        id: 8,
+        user_id: 1,
+        category: 'Salário',
+        type: 'saída',
+        value: 430000,
+        date: new Date('01/08/2023'),
+      },
+      {
+        id: 9,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 988100,
+        date: new Date('01/09/2023'),
+      },
+      {
+        id: 10,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 547400,
+        date: new Date('01/10/2023'),
+      },
+      {
+        id: 11,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 380500,
+        date: new Date('01/11/2023'),
+      },
+      {
+        id: 12,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 604300,
+        date: new Date('01/12/2023'),
+      },
+      {
+        id: 13,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 210700,
+        date: new Date('01/13/2023'),
+      },
+      {
+        id: 14,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 281000,
+        date: new Date('01/14/2023'),
+      },
+      {
+        id: 15,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 475800,
+        date: new Date('01/15/2023'),
+      },
+      {
+        id: 16,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 895200,
+        date: new Date('01/16/2023'),
+      },
+      {
+        id: 17,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 918100,
+        date: new Date('01/17/2023'),
+      },
+      {
+        id: 18,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 225300,
+        date: new Date('01/18/2023'),
+      },
+      {
+        id: 19,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 326400,
+        date: new Date('01/19/2023'),
+      },
+      {
+        id: 20,
+        user_id: 1,
+        category: 'Salário',
+        type: 'entrada',
+        value: 739700,
+        date: new Date('01/20/2023'),
+      },
+    ]
+  }
+]

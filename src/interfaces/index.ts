@@ -1,2 +1,5 @@
 export * from './INavbarContext'
 export * from './IMainContent'
+export * from './ITransactions'
+export * from './IUserData'
+export * from './IUserDataContext'

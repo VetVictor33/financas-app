@@ -1,7 +1,6 @@
 'use client'
-import { Header } from 'components'
+import { Header, TransactionsTable } from 'components'
 import { useNavbarContext } from 'contexts'
-import { HOME_CONTENT } from 'helpers'
 
 export default function Home() {
   const { mainContent } = useNavbarContext()
@@ -9,6 +8,9 @@ export default function Home() {
   return (
     <>
       <Header />
+      <div className='bg-cyan-800 rounded-t-3xl p-6'>
+        <TransactionsTable />
+      </div>
     </>
   )
 }
