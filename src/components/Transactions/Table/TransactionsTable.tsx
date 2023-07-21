@@ -11,6 +11,7 @@ import { paginateArray } from "utils"
 export function TransactionsTable() {
   const { transactions, setTransactions, paginatedTransactions, setPaginatedTransactions, currentPage, setCurrentPage } = useUserDataContext()
   const [totalPages, setTotalPages] = useState(0)
+  console.log(currentPage)
 
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value)
@@ -36,7 +37,7 @@ export function TransactionsTable() {
       </table>
       <Stack spacing={2} >
         <div className={'mx-auto'}>
-          <Pagination count={totalPages} size="small" onChange={handlePageChange} />
+          <Pagination page={currentPage} count={totalPages} size="small" onChange={handlePageChange} />
         </div>
       </Stack>
     </div>

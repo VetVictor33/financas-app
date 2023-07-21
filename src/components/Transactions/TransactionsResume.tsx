@@ -1,7 +1,7 @@
 'use client'
 
 import { useUserDataContext } from "contexts/UserDataContext"
-import { formatMoneyFromCents, formatToNormalizedAndLowercase } from "utils"
+import { formatMoneyFromCentsReturningString, formatToNormalizedAndLowercase } from "utils"
 
 export function TransactionsResume() {
   const { transactions, paginatedTransactions } = useUserDataContext()
@@ -41,22 +41,22 @@ export function TransactionsResume() {
         <p className="text-xs">Filtro:</p>
         <div className="font-mono">
           <p>Entradas: </p>
-          <p className="income">{formatMoneyFromCents(paginatedIncome)}</p>
+          <p className="income">{formatMoneyFromCentsReturningString(paginatedIncome)}</p>
           <p>Saídas: </p>
-          <p className="outcome">{formatMoneyFromCents(paginatedOutcome)}</p>
+          <p className="outcome">{formatMoneyFromCentsReturningString(paginatedOutcome)}</p>
           <p>Saldo: </p>
-          <p className={paginatedBalance > 0 ? 'income' : 'outcome'}>{formatMoneyFromCents(paginatedBalance)} </p>
+          <p className={paginatedBalance > 0 ? 'income' : 'outcome'}>{formatMoneyFromCentsReturningString(paginatedBalance)} </p>
         </div>
       </div>
       <div className="w-1/2 rounded-lg bg-slate-600 bg-opacity-30 p-1">
         <p className="text-xs">Total:</p>
         <div className="font-mono">
           <p>Entradas: </p>
-          <p className="income">{formatMoneyFromCents(totalIncome)}</p>
+          <p className="income">{formatMoneyFromCentsReturningString(totalIncome)}</p>
           <p>Saídas: </p>
-          <p className="outcome">{formatMoneyFromCents(totalOutcome)}</p>
+          <p className="outcome">{formatMoneyFromCentsReturningString(totalOutcome)}</p>
           <p>Saldo: </p>
-          <p className={totalBalance > 0 ? 'income' : 'outcome'}>{formatMoneyFromCents(totalBalance)} </p>
+          <p className={totalBalance > 0 ? 'income' : 'outcome'}>{formatMoneyFromCentsReturningString(totalBalance)} </p>
         </div>
       </div>
     </div>

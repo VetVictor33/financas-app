@@ -1,3 +1,4 @@
+import { Navbar } from "components";
 import Image from "next/image";
 
 export function Header() {
@@ -11,6 +12,7 @@ export function Header() {
           <li>Logout</li>
         </ul>
       </div>
+      <Navbar />
       <div className="h-full w-full absolute top-10 -z-10 bg-blue-500 " />
     </header>
   )

@@ -1,15 +1,14 @@
 'use client'
-import React, { useContext, createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-import { IMainContent, INavbarContext, MainContentType } from 'interfaces';
-import { HOME_CONTENT } from 'helpers';
+import { INavbarContext } from 'interfaces';
 
 const NavbarContext = createContext<INavbarContext>(null!);
 
 export function NavbarContextProvider({ children }: { children: React.ReactNode }) {
-  const [mainContent, setMainContent] = useState<MainContentType>(HOME_CONTENT);
+  const [mainContentIndex, setMainContentIndex] = useState<number>(0);
   return (
-    <NavbarContext.Provider value={{ mainContent, setMainContent }}>
+    <NavbarContext.Provider value={{ mainContentIndex, setMainContentIndex }}>
       {children}
     </NavbarContext.Provider>
   );
