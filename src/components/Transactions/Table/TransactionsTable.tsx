@@ -1,5 +1,5 @@
 'use client'
-import { TransactionsRow } from "components/Transactions/TransactionsRow"
+import { TransactionsHead, TransactionsRow } from "components"
 import { useUserDataContext } from "contexts/UserDataContext"
 import { mockData } from "data.mock/mockData"
 import { ChangeEvent, useEffect, useState } from "react"
@@ -9,7 +9,7 @@ import { paginateArray } from "utils"
 
 
 export function TransactionsTable() {
-  const { transactions, setTransactions, currentPage, setCurrentPage } = useUserDataContext()
+  const { transactions, setTransactions, paginatedTransactions, setPaginatedTransactions, currentPage, setCurrentPage } = useUserDataContext()
   const [totalPages, setTotalPages] = useState(0)
 
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
@@ -18,25 +18,27 @@ export function TransactionsTable() {
 
   useEffect(() => {
     const getTransactions = () => {
-      const mockedData = mockData[0].transactions
-      const { paginatedItems, totalPages } = paginateArray(mockedData, 6, currentPage)
-      setTransactions(paginatedItems)
+      const mockedTransactions = mockData[0].transactions
+      setTransactions(mockedTransactions)
+      const { paginatedItems, totalPages } = paginateArray(mockedTransactions, 8, currentPage)
+      setPaginatedTransactions(paginatedItems)
       setTotalPages(totalPages)
     }
     getTransactions()
-  }, [setTransactions, currentPage])
+  }, [setTransactions, setPaginatedTransactions, currentPage])
   return (
-    <>
-      <div className="flex flex-col h-fit p-2 border-zinc-400 ">
-        {transactions && transactions.map((transaction) => (
+    <div className="flex flex-col  flex-grow">
+      <table className="flex flex-col h-fit p-2 border-zinc-400 my-auto">
+        <TransactionsHead head={{ category: 'Tipo', value: 'Valor', date: 'Data' }} />
+        {paginatedTransactions && paginatedTransactions.map((transaction) => (
           <TransactionsRow key={transaction.id} transaction={transaction} />
         ))}
-      </div>
+      </table>
       <Stack spacing={2} >
         <div className={'mx-auto'}>
           <Pagination count={totalPages} size="small" onChange={handlePageChange} />
         </div>
       </Stack>
-    </>
+    </div>
   )
 }

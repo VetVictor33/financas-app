@@ -1,4 +1,2 @@
-export * from './TransactionsGraphics'
-export * from './TransactionsTable'
-export * from './TransactionsRow'
-export * from './TransactionsCell'
+export * from './Table'
+export * from './TransactionsResume'

@@ -11,7 +11,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 782500,
-        date: new Date('01/01/2023'),
+        date: '01/01/2023',
       },
       {
         id: 2,
@@ -19,7 +19,7 @@ export const mockData = [
         category: 'Conta de luz',
         type: 'saída',
         value: 43900,
-        date: new Date('01/02/2023'),
+        date: '01/02/2023',
       },
       {
         id: 3,
@@ -27,7 +27,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 3185700,
-        date: new Date('01/03/2023'),
+        date: '01/03/2023',
       },
       {
         id: 4,
@@ -35,7 +35,7 @@ export const mockData = [
         category: 'Multa no Detran',
         type: 'saída',
         value: 522800,
-        date: new Date('01/04/2023'),
+        date: '01/04/2023',
       },
       {
         id: 5,
@@ -43,7 +43,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 657600,
-        date: new Date('01/05/2023'),
+        date: '01/05/2023',
       },
       {
         id: 6,
@@ -51,7 +51,7 @@ export const mockData = [
         category: 'Pensão das esposas',
         type: 'saída',
         value: 926200,
-        date: new Date('01/06/2023'),
+        date: '01/06/2023',
       },
       {
         id: 7,
@@ -59,7 +59,7 @@ export const mockData = [
         category: 'Pensão das criança',
         type: 'saída',
         value: 756300,
-        date: new Date('01/07/2023'),
+        date: '01/07/2023',
       },
       {
         id: 8,
@@ -67,7 +67,7 @@ export const mockData = [
         category: 'Salário',
         type: 'saída',
         value: 430000,
-        date: new Date('01/08/2023'),
+        date: '01/08/2023',
       },
       {
         id: 9,
@@ -75,7 +75,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 988100,
-        date: new Date('01/09/2023'),
+        date: '01/09/2023',
       },
       {
         id: 10,
@@ -83,7 +83,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 547400,
-        date: new Date('01/10/2023'),
+        date: '01/10/2023',
       },
       {
         id: 11,
@@ -91,7 +91,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 380500,
-        date: new Date('01/11/2023'),
+        date: '01/11/2023',
       },
       {
         id: 12,
@@ -99,7 +99,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 604300,
-        date: new Date('01/12/2023'),
+        date: '01/12/2023',
       },
       {
         id: 13,
@@ -107,7 +107,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 210700,
-        date: new Date('01/13/2023'),
+        date: '01/13/2023',
       },
       {
         id: 14,
@@ -115,7 +115,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 281000,
-        date: new Date('01/14/2023'),
+        date: '01/14/2023',
       },
       {
         id: 15,
@@ -123,7 +123,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 475800,
-        date: new Date('01/15/2023'),
+        date: '01/15/2023',
       },
       {
         id: 16,
@@ -131,7 +131,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 895200,
-        date: new Date('01/16/2023'),
+        date: '01/16/2023',
       },
       {
         id: 17,
@@ -139,7 +139,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 918100,
-        date: new Date('01/17/2023'),
+        date: '01/17/2023',
       },
       {
         id: 18,
@@ -147,7 +147,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 225300,
-        date: new Date('01/18/2023'),
+        date: '01/18/2023',
       },
       {
         id: 19,
@@ -155,7 +155,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 326400,
-        date: new Date('01/19/2023'),
+        date: '01/19/2023',
       },
       {
         id: 20,
@@ -163,7 +163,7 @@ export const mockData = [
         category: 'Salário',
         type: 'entrada',
         value: 739700,
-        date: new Date('01/20/2023'),
+        date: '01/20/2023',
       },
     ]
   }

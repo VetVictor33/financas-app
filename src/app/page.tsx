@@ -1,5 +1,5 @@
 'use client'
-import { Header, TransactionsTable } from 'components'
+import { Header, TransactionsResume, TransactionsTable } from 'components'
 import { useNavbarContext } from 'contexts'
 
 export default function Home() {
@@ -8,8 +8,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className='bg-cyan-800 rounded-t-3xl p-6'>
+      <div className='bg-cyan-800 rounded-t-3xl p-6 flex flex-col flex-grow'>
         <TransactionsTable />
+        <TransactionsResume />
       </div>
     </>
   )

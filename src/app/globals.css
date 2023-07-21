@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .outcome{
+    color:#DC2626
+  }
+  .income {
+    color: #2563EB
+  }
+}

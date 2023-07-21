@@ -4,5 +4,5 @@ export interface ITransactions {
   category: string,
   type: string,
   value: number,
-  date: Date
+  date: string
 }
