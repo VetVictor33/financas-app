@@ -4,9 +4,9 @@ import { useUserDataContext } from "contexts/UserDataContext"
 import { formatMoneyFromCentsReturningString, formatToNormalizedAndLowercase } from "utils"
 
 export function TransactionsResume() {
-  const { transactions, paginatedTransactions } = useUserDataContext()
+  const { transactions, filteredTransactions } = useUserDataContext()
 
-  const paginatedIncome: number = paginatedTransactions.reduce((accumulator, currentValue) => {
+  const paginatedIncome: number = filteredTransactions.reduce((accumulator, currentValue) => {
     if (formatToNormalizedAndLowercase(currentValue.type) === 'entrada') {
       return accumulator + currentValue.value
     }
@@ -18,7 +18,7 @@ export function TransactionsResume() {
     }
     return accumulator
   }, 0)
-  const paginatedOutcome: number = paginatedTransactions.reduce((accumulator, currentValue) => {
+  const paginatedOutcome: number = filteredTransactions.reduce((accumulator, currentValue) => {
     if (formatToNormalizedAndLowercase(currentValue.type) === 'saida') {
       return accumulator + currentValue.value
     }
@@ -31,8 +31,8 @@ export function TransactionsResume() {
     return accumulator
   }, 0)
 
-  const paginatedBalance = (paginatedIncome - paginatedOutcome)
-  const totalBalance = (totalIncome - totalOutcome)
+  const paginatedBalance = ((paginatedIncome) + (paginatedOutcome))
+  const totalBalance = ((totalIncome) + (totalOutcome))
 
   return (
     <div className="flex flex-grow-0 justify-around  my-2 py-4 px-2 rounded bg-slate-300 uppercase gap-1

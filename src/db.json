@@ -1,0 +1,9 @@
+{
+  "users" :[
+    {"id": 1, "username": "Lukinhas", "password": "senhasegura123", "transactions": [
+      {"id": 1, "user_id": 1, "category": "Salário", "type": "entrada", "value": 962469, "date": "01/01/2023"},
+      {"id": 2, "user_id": 1, "category": "Compras do mês", "type": "saída", "value": 84700, "date": "07/01/2023"},
+      {"id": 3, "user_id": 1, "category": "Salário", "type": "entrada", "value": 962469, "date": "01/02/2023"}
+    ]}
+  ]
+}

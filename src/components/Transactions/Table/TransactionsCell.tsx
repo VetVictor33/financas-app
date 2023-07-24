@@ -13,7 +13,8 @@ export function TransactionsCell({ data, className, element: Element = 'td' }: P
   return (
     <ElementTag className={`${className} 
     overflow-hidden text-ellipsis hover:overflow-visible
-    w-20 m-auto text-center
+    w-1/3 m-auto text-center
+    whitespace-nowrap
     text-sm`
     }>{data}</ElementTag>
   )

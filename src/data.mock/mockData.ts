@@ -18,7 +18,7 @@ export const mockData = [
         user_id: 1,
         category: 'Conta de luz',
         type: 'saída',
-        value: 43900,
+        value: -43900,
         date: '01/02/2023',
       },
       {
@@ -34,7 +34,7 @@ export const mockData = [
         user_id: 1,
         category: 'Multa no Detran',
         type: 'saída',
-        value: 522800,
+        value: -522800,
         date: '01/04/2023',
       },
       {
@@ -50,7 +50,7 @@ export const mockData = [
         user_id: 1,
         category: 'Pensão das esposas',
         type: 'saída',
-        value: 926200,
+        value: -926200,
         date: '01/06/2023',
       },
       {
@@ -58,7 +58,7 @@ export const mockData = [
         user_id: 1,
         category: 'Pensão das criança',
         type: 'saída',
-        value: 756300,
+        value: -756300,
         date: '01/07/2023',
       },
       {
@@ -66,7 +66,7 @@ export const mockData = [
         user_id: 1,
         category: 'Salário',
         type: 'saída',
-        value: 430000,
+        value: -430000,
         date: '01/08/2023',
       },
       {

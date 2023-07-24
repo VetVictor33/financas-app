@@ -1,35 +1,36 @@
 'use client'
 import { LineChart } from '@mui/x-charts/LineChart';
+import { Alert } from '@mui/material';
 import { useUserDataContext } from 'contexts/UserDataContext';
-import { formatDate, formatMoneyFromCentsReturningNumber, formatToNormalizedAndLowercase } from 'utils';
+import { formatDate, formatMoneyFromCentsReturningNumber } from 'utils';
+import { useEffect } from 'react'
+
+export function TransactionsChart() {
+  const { filteredTransactions, filterTransactions, yearFilter, categoryFilter } = useUserDataContext()
 
 
-export function TransactionsChart({ filter = 'Salário' }) {
-  const { transactions } = useUserDataContext()
-  const normalizedCategoryFilter = formatToNormalizedAndLowercase(filter)
-  const yearFilter = 2023
+  const yearAxis = filteredTransactions.map((({ date }) => +formatDate(date, "MM")))
+  const valueAxis = filteredTransactions.map(({ value }) => formatMoneyFromCentsReturningNumber(value))
 
-  const transactionsFilteredByYear =
-    transactions.filter(item => new Date(item.date).getFullYear() === yearFilter)
-  const transactionsFilteredByYearAndCategory =
-    transactionsFilteredByYear.filter(item => formatToNormalizedAndLowercase(item.category) === normalizedCategoryFilter)
-
-  const yearAxis = transactionsFilteredByYearAndCategory.map(item => +formatDate(item.date, "MM"))
-  const valueAxis = transactionsFilteredByYearAndCategory.map(item => formatMoneyFromCentsReturningNumber(item.value))
-
-  console.log(yearAxis, valueAxis)
+  useEffect(() => {
+    filterTransactions()
+  }, [yearFilter, categoryFilter])
+  if ((!yearFilter || !categoryFilter)) return (
+    <Alert severity='info' className='mt-2'>Selecione os filtros</Alert>)
+  if ((!yearAxis.length || !valueAxis.length)) return (
+    <Alert severity='info' className='mt-2'>Não há dados para essa série</Alert>)
   return (
     <LineChart
       xAxis={[{
-        id: 'Meses',
+        id: yearFilter?.toString(),
         label: 'Mês',
         data: yearAxis
       }]}
       series={[
         {
-          id: filter,
+          id: categoryFilter,
           data: valueAxis,
-          label: filter,
+          label: categoryFilter,
           area: true,
         },
       ]}
