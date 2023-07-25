@@ -1,17 +1,16 @@
 'use client'
 import { Input } from "components"
-import { useUserDataContext } from "contexts/UserDataContext"
-import { setCookie } from "helpers"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { axios } from "services"
 
-export default function Login() {
-  const { setUser } = useUserDataContext()
+export default function Register() {
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [usernameError, setUsernameError] = useState(false)
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('')
   const [emailError, setEmailError] = useState(false)
   const [emailErrorMessage, setEmailErrorMessage] = useState('')
   const [passwordError, setPasswordError] = useState(false)
@@ -19,15 +18,16 @@ export default function Login() {
 
   const [feedbackMessage, setFeedbackMessage] = useState('')
 
-  const router = useRouter()
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     const name = e.target.name
 
     setFeedbackMessage('')
-
     switch (name) {
+      case 'username':
+        setUsername(value)
+        setUsernameError(false)
+        break;
       case 'email':
         setEmail(value)
         setEmailError(false)
@@ -41,6 +41,10 @@ export default function Login() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!username) {
+      setUsernameError(true)
+      setUsernameErrorMessage('Digite o username')
+    }
     if (!email) {
       setEmailError(true)
       setEmailErrorMessage('Digite o email')
@@ -50,17 +54,14 @@ export default function Login() {
       setPasswordErrorMessage('Digite a senha')
     }
 
-    if (passwordError || emailError) return
+    if (passwordError || emailError || usernameError) return
     try {
-      const { data } = await axios.post('/login', { email, password })
-      const { accessToken, user } = data
-      setUser({ id: user.id, username: user.name })
-      setCookie('accessToken', accessToken)
-      setCookie('usernameId', user.id)
-      setCookie('username', user.username)
-      router.push('/')
+      await axios.post('/register', { username, email, password })
+      setFeedbackMessage("Usuário cadastrado com sucesso")
     } catch (error) {
-      setFeedbackMessage('Credenciais inválidas')
+      if (error.code === 'ERR_BAD_REQUEST') {
+        setFeedbackMessage("Não foi possível cadastrar este email")
+      }
     }
   }
 
@@ -68,6 +69,14 @@ export default function Login() {
     <div className="h-screen flex justify-center items-center text-white">
       <form className="bg-indigo-900 w-3/4 flex flex-col rounded-lg px-6 py-16 gap-2"
         onSubmit={handleSubmit}>
+        <Input
+          name="username"
+          label="Username"
+          type="text"
+          error={usernameError}
+          errorMessage={usernameErrorMessage}
+          value={username}
+          onChange={handleInputChange} />
         <Input
           name="email"
           label="Email"
@@ -86,10 +95,10 @@ export default function Login() {
           onChange={handleInputChange} />
         {feedbackMessage && <p>{feedbackMessage}</p>}
         <button className="bg-white bg-opacity-30 hover:bg-opacity-60 py-2"
-        >Entrar</button>
+        >Cadastrar</button>
         <div className="flex gap-1 ">
-          <p>Não possui cadastro?</p>
-          <Link href={'/register'} className="hover:opacity-75">Cadastrar-se</Link>
+          <p>Já possui cadastro?</p>
+          <Link href={'/login'} className="hover:opacity-75">Fazer login</Link>
         </div>
       </form>
     </div>

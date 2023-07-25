@@ -8,6 +8,7 @@ import { formatToNormalizedAndLowercase, paginateArray } from 'utils';
 const UserDataContext = createContext<IUserDataContext>(null!);
 
 export function UserDataContextProvider({ children }: { children: React.ReactNode }) {
+  const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState<IUserData>(undefined!)
   const [transactions, setTransactions] = useState<ITransactions[]>([])
   const [paginatedTransactions, setPaginatedTransactions] = useState<ITransactions[]>([])
@@ -16,6 +17,7 @@ export function UserDataContextProvider({ children }: { children: React.ReactNod
   const [yearFilter, setYearFilter] = useState<number | undefined>(undefined)
   const [categoryFilter, setCategoryFilter] = useState<ITransactions['category'] | undefined>(undefined)
   const [totalPages, setTotalPages] = useState(0)
+
 
   function filterTransactions() {
     const byCategory = categoryFilter
@@ -40,7 +42,7 @@ export function UserDataContextProvider({ children }: { children: React.ReactNod
 
   return (
     <UserDataContext.Provider value={{
-      user, setUser, transactions, setTransactions,
+      loggedIn, setLoggedIn, user, setUser, transactions, setTransactions,
       paginatedTransactions, setPaginatedTransactions, currentPage, setCurrentPage,
       filterTransactions, yearFilter, setYearFilter, categoryFilter, setCategoryFilter,
       filteredTransactions, totalPages

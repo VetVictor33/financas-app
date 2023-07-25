@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Lukinhas",
+      "password": "senhasegura123"
+    },
+    {
+      "email": "teste@teste",
+      "password": "$2a$10$1pglLOvOMGEXayGJ2rtkh.EZmsmxELX34vAqyk.jASQXgsvE6Zlpe",
+      "id": 2
+    },
+    {
+      "email": "teste@teste2",
+      "password": "$2a$10$EwwhFQZQWbHIRyZicBB2e..nGC1cu38LpGGdXw6AFJ/2Iq./yvGlm",
+      "username": "teste",
+      "id": 3
+    },
+    {
+      "email": "teste@teste3",
+      "password": "$2a$10$PEotxAxi6QNbxRVo6XUebOEQOxMnflHlo4MZFjd.t4Azasaubzxoq",
+      "username": "teste",
+      "id": 4
+    },
+    {
+      "email": "lukinha@email.com",
+      "password": "$2a$10$eZVev5g4jzEQ3xo/Aj2GtuCZNgp7qnmY.cF9F23l0p1t2KR9CAO2a",
+      "username": "Lukinha",
+      "id": 5
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "category": "Salário",
+      "type": "entrada",
+      "value": 962469,
+      "date": "01/01/2023"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "category": "Compras do mês",
+      "type": "saída",
+      "value": 84700,
+      "date": "07/01/2023"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "category": "Salário",
+      "type": "entrada",
+      "value": 962469,
+      "date": "01/02/2023"
+    }
+  ]
+}
