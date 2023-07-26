@@ -4,6 +4,7 @@ import { UserDataContextProvider } from 'contexts/UserDataContext';
 
 
 export * from './NavHeaderContext';
+export * from './UserDataContext'
 
 export function AppContexts({ children }: { children: React.ReactNode }) {
   return (

@@ -1,6 +1,9 @@
 'use client'
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { NewTransactionsModal } from 'components/Transactions/NewTransactionsModal';
 import { useUserDataContext } from 'contexts/UserDataContext';
+import { Plus } from 'lucide-react';
+import { RefObject, useRef, useState } from 'react';
 
 export function TransactionsFilter() {
   const { transactions,
@@ -8,16 +11,21 @@ export function TransactionsFilter() {
   const uniqueYears = Array.from(new Set(transactions.map(({ date }) => new Date(date).getFullYear())));
   const uniqueCategories = Array.from(new Set(transactions.map(({ category }) => category)));
 
+  const modalRef = useRef<HTMLDialogElement>(null)
+
   const handleYearChange = (event: SelectChangeEvent) => {
     setYearFilter(+(event.target.value));
   };
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setCategoryFilter(event.target.value);
   };
+  const handleNewTransactionsModal = () => {
+    modalRef.current.showModal()
+  }
 
   return (
     <div className='flex flex-col w-full'>
-      <div className='flex w-full'>
+      <div className='flex w-full gap-2'>
         <FormControl fullWidth size="small" >
           <InputLabel htmlFor="year">Ano</InputLabel>
           <Select
@@ -54,7 +62,12 @@ export function TransactionsFilter() {
             })}
           </Select>
         </FormControl>
+        <button className="border-cyan-50 border rounded-lg px-1"
+          onClick={handleNewTransactionsModal} >
+          <Plus fill='black' />
+        </button>
       </div>
+      <NewTransactionsModal modalRef={modalRef} />
     </div>
   )
 }

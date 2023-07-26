@@ -1,9 +1,9 @@
 'use client'
 import { Header, TransactionsChart, TransactionsFilter, TransactionsResume, TransactionsTable } from 'components'
-import { useNavbarContext } from 'contexts'
-import { useUserDataContext } from 'contexts/UserDataContext'
-import { mockData } from 'data.mock/mockData'
+import { useNavbarContext, useUserDataContext } from 'contexts'
+import { getTransactions } from 'database'
 import { checkToken } from 'helpers'
+import { ITransactions } from 'interfaces'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -14,10 +14,14 @@ export default function Home() {
   const hasToken = checkToken()
   if (!hasToken) router.push('/login')
 
-  function setData() {
-    const mockedTransactions = mockData[0].transactions
-    setTransactions(mockedTransactions)
-    filterTransactions()
+  async function setData() {
+    try {
+      const { data }: { data: Array<ITransactions> } = await getTransactions()
+      setTransactions(data)
+      filterTransactions()
+    } catch (error) {
+      console.log(error)
+    }
   }
   useEffect(() => { setData() }, [])
   return (
