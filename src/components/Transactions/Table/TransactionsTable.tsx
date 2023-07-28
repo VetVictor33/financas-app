@@ -19,7 +19,7 @@ export function TransactionsTable() {
   return (
     <div className="flex flex-col  flex-grow">
       <table className="flex flex-col h-fit p-2 border-zinc-400 my-auto">
-        {paginatedTransactions.length ?
+        {paginatedTransactions ?
           <>
             <TransactionsHead head={{ category: 'Tipo', value: 'Valor', date: 'Data' }} />
             {paginatedTransactions.map((transaction) => (

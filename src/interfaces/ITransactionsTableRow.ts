@@ -1,5 +1,5 @@
 export interface ITransactionsTableRows {
-  id: number,
+  id?: number,
   category: string,
   type?: string,
   value: string | number,

@@ -18,7 +18,7 @@ export function Input({ name, label, type, value, error, errorMessage, onChange,
           htmlFor={name}>{label}</label>
         {error && <span className="text-red-600 bg-white bg-opacity-30 px-1 rounded-md font-semibold">{errorMessage}</span>}
       </div>
-      <input onChange={onChange} className={`bg-white bg-opacity-10 border-white border p-2 rounded-md ${inputClassName}`}
+      <input onChange={onChange} className={`${inputClassName} + "bg-white bg-opacity-10 border-white border p-2 rounded-md"`}
         id={name}
         name={name}
         type={type}

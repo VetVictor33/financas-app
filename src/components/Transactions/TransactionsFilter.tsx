@@ -1,9 +1,9 @@
 'use client'
-import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { NewTransactionsModal } from 'components/Transactions/NewTransactionsModal';
 import { useUserDataContext } from 'contexts/UserDataContext';
 import { Plus } from 'lucide-react';
-import { RefObject, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 export function TransactionsFilter() {
   const { transactions,
@@ -20,7 +20,7 @@ export function TransactionsFilter() {
     setCategoryFilter(event.target.value);
   };
   const handleNewTransactionsModal = () => {
-    modalRef.current.showModal()
+    modalRef.current?.showModal()
   }
 
   return (

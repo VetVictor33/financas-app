@@ -12,7 +12,7 @@ export interface IUserDataContext {
   setPaginatedTransactions: Dispatch<SetStateAction<ITransactions[]>>
   currentPage: number,
   setCurrentPage: Dispatch<SetStateAction<number>>
-  filterTransactions: () => void
+  filterTransactions: (transactions?: ITransactions[]) => void
   filteredTransactions: ITransactions[]
   yearFilter: number | undefined
   setYearFilter: Dispatch<SetStateAction<number | undefined>>

@@ -1,11 +1,27 @@
 import { Input } from "components";
-import { ChangeEvent, useState } from "react";
+import { useUserDataContext } from "contexts";
+import { LocalDatabase } from "services";
+import { ChangeEvent, FormEvent, RefObject, useState, useEffect } from "react";
 
-export function NewTransactionsModal({ modalRef }) {
-  const [category, setCategory] = useState('')
-  const [type, setType] = useState('entrada')
-  const [value, setValue] = useState(0)
-  const [date, setDate] = useState('')
+type Props = {
+  modalRef: RefObject<HTMLDialogElement>,
+  incomeId?: number | undefined,
+  incomeCategory?: string,
+  incomeType?: string,
+  incomeValue?: number,
+  incomeDate?: string,
+  editing?: boolean
+}
+
+export function NewTransactionsModal({ modalRef,
+  incomeId = undefined, incomeCategory = '', incomeType = 'entrada', incomeValue = 0, incomeDate = '', editing = false }: Props) {
+
+  const { user } = useUserDataContext()
+
+  const [category, setCategory] = useState(incomeCategory)
+  const [type, setType] = useState(incomeType)
+  const [value, setValue] = useState(incomeValue)
+  const [date, setDate] = useState(incomeDate)
 
   const [categoryError, setCategoryError] = useState(false)
   const [typeError, setTypeError] = useState(false)
@@ -17,9 +33,12 @@ export function NewTransactionsModal({ modalRef }) {
   const [valueErrorMessage, setValueErrorMessage] = useState('')
   const [dateErrorMessage, setDateErrorMessage] = useState('')
 
+  const [feedbackMessage, setFeedbackMessage] = useState('')
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const [name, value] = [e.target.name, e.target.value]
-    console.log(name, value)
+
+    setFeedbackMessage('')
     switch (name) {
       case 'category':
         setCategory(value)
@@ -39,10 +58,58 @@ export function NewTransactionsModal({ modalRef }) {
     }
   }
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!category) {
+      setCategoryError(true)
+      setCategoryErrorMessage('Campo obrigatório')
+    }
+    if (!type) {
+      setTypeError(true)
+      setTypeErrorMessage('Campo obrigatório')
+    }
+    if (!value) {
+      setValueError(true)
+      setValueErrorMessage('Campo obrigatório')
+    }
+    if (!date) {
+      setDateError(true)
+      setDateErrorMessage('Campo obrigatório')
+    }
+    if (!category || !type || !value || !date) {
+      setFeedbackMessage('Faltam campos obrigatórios')
+      return
+    }
+
+    try {
+      const userId = user.id
+      const newTransactionData = { user_id: +userId, category, type, value, date }
+      if (editing) {
+        const editedTransaction = LocalDatabase.editTransaction(userId, incomeId!, newTransactionData)
+        setFeedbackMessage('Editada com sucesso!')
+      } else {
+        const newTransaction = LocalDatabase.setTransaction(newTransactionData)
+        setFeedbackMessage('Adicionada com sucesso!')
+        clearForm()
+      }
+      setTimeout(() => { setFeedbackMessage('') }, 5000)
+    } catch (error) {
+      setFeedbackMessage((error as Error).message)
+    }
+  }
+
+  function clearForm() {
+    setCategory('')
+    setValue(0)
+    setDate('')
+  }
+
   return (
-    <dialog ref={modalRef} className="w-2/3 h-1/2 z-10 rounded-lg">
+    <dialog ref={modalRef} className="w-2/3 h-fit z-10 rounded-lg relative">
       <div className="p-5">
-        <form >
+        <button className="absolute right-3 top-3 hover:cursor-pointer hover:opacity-75 p-2"
+          onClick={() => modalRef.current?.close()}>x</button>
+        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <Input label="Tipo" inputClassName={'bg-black'}
             name="category"
             type="text"
@@ -51,10 +118,10 @@ export function NewTransactionsModal({ modalRef }) {
             error={categoryError}
             errorMessage={categoryErrorMessage} />
           <div className="flex flex-col">
-            <label htmlFor="type">Categoria</label>
+            <label htmlFor="type">Categoria <span className="text-red-600 font-semibold">{typeErrorMessage}</span></label>
             <select name="type" id="type" value={type} onChange={handleInputChange} className="bg-black bg-opacity-10 border-white border p-2 rounded-md w-full">
               <option value="entrada">Entrada</option>
-              <option value="saida">Saida</option>
+              <option value="saida">Saída</option>
             </select>
           </div>
           <Input label="Valor" inputClassName={'bg-black'}
@@ -71,6 +138,16 @@ export function NewTransactionsModal({ modalRef }) {
             onChange={handleInputChange}
             error={dateError}
             errorMessage={dateErrorMessage} />
+          <div className="h-5">
+            <p className={`${(categoryError || typeError || valueError || dateError ? 'text-red-600' : 'text-green-600')}`}
+            >{feedbackMessage}</p>
+          </div>
+          <button className="
+          bg-black bg-opacity-10 border-white border p-2 rounded-md w-full uppercase font-semibold">
+            {editing ?
+              "Editar" :
+              "Criar"}
+          </button>
         </form>
       </div>
     </dialog>

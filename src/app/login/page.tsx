@@ -1,21 +1,18 @@
 'use client'
 import { Input } from "components"
-import { useUserDataContext } from "contexts/UserDataContext"
-import { setCookie } from "helpers"
+import { useUserDataContext } from "contexts"
+import { LocalDatabase } from "services"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { axios } from "services"
+import { Storage } from "utils"
 
 export default function Login() {
   const { setUser } = useUserDataContext()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
 
-  const [emailError, setEmailError] = useState(false)
-  const [emailErrorMessage, setEmailErrorMessage] = useState('')
-  const [passwordError, setPasswordError] = useState(false)
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('')
+  const [usernameError, setUsernameError] = useState(false)
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('')
 
   const [feedbackMessage, setFeedbackMessage] = useState('')
 
@@ -28,39 +25,31 @@ export default function Login() {
     setFeedbackMessage('')
 
     switch (name) {
-      case 'email':
-        setEmail(value)
-        setEmailError(false)
-        break;
-      case 'password':
-        setPassword(value)
-        setPasswordError(false)
-        break;
+      case 'username':
+        setUsername(value)
+        setUsernameError(false)
+        break
     }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!email) {
-      setEmailError(true)
-      setEmailErrorMessage('Digite o email')
-    }
-    if (!password) {
-      setPasswordError(true)
-      setPasswordErrorMessage('Digite a senha')
+    if (!username) {
+      setUsernameError(true)
+      setUsernameErrorMessage('Digite o username')
+      return
     }
 
-    if (passwordError || emailError) return
     try {
-      const { data } = await axios.post('/login', { email, password })
-      const { accessToken, user } = data
-      setUser({ id: user.id, username: user.name })
-      setCookie('accessToken', accessToken)
-      setCookie('usernameId', user.id)
-      setCookie('username', user.username)
+      const { id, username: newUsername } = LocalDatabase.getUser(username)
+
+      setUser({ id, username: newUsername })
+      Storage.setSessionItem('username', newUsername)
+      Storage.setSessionItem('userId', String(id))
       router.push('/')
     } catch (error) {
-      setFeedbackMessage('Credenciais inválidas')
+      //@ts-ignore
+      setFeedbackMessage(error.message)
     }
   }
 
@@ -69,22 +58,16 @@ export default function Login() {
       <form className="bg-indigo-900 w-3/4 flex flex-col rounded-lg px-6 py-16 gap-2"
         onSubmit={handleSubmit}>
         <Input
-          name="email"
-          label="Email"
-          type="email"
-          error={emailError}
-          errorMessage={emailErrorMessage}
-          value={email}
-          onChange={handleInputChange} />
-        <Input
-          name="password"
-          label="Senha"
-          type="password"
-          error={passwordError}
-          errorMessage={passwordErrorMessage}
-          value={password}
-          onChange={handleInputChange} />
-        {feedbackMessage && <p>{feedbackMessage}</p>}
+          name="username"
+          label="Username"
+          type="text"
+          error={usernameError}
+          errorMessage={usernameErrorMessage}
+          value={username}
+          onChange={handleInputChange}
+          inputClassName="text-black"
+        />
+        {feedbackMessage && <p className='text-red-600'>{feedbackMessage}</p>}
         <button className="bg-white bg-opacity-30 hover:bg-opacity-60 py-2"
         >Entrar</button>
         <div className="flex gap-1 ">

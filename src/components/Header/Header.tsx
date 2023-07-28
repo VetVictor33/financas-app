@@ -1,15 +1,31 @@
+'use client'
 import { Navbar } from "components";
+import { useUserDataContext } from "contexts";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Storage } from "utils";
 
 export function Header() {
+  const { user } = useUserDataContext()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    Storage.clearSession()
+    router.push('/login')
+  }
+
   return (
     <header className="flex flex-col justify-between align-middle
      bg-blue-500 text-white relative mb-3">
       <div className="flex justify-between  p-3">
         <Image src="./money.svg" alt="logo" width='30' height='30' />
         <ul className="flex gap-1">
-          <li className="font-semibold">Username</li>
-          <li>Logout</li>
+          <li className="font-semibold">{user?.username}</li>
+          <li>
+            <button onClick={handleLogout}>
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
       <Navbar />

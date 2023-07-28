@@ -2,7 +2,7 @@
 import { ITransactions, IUserData } from 'interfaces';
 import { IUserDataContext } from 'interfaces/IUserDataContext';
 import React, { useContext, createContext, useState } from 'react';
-import { formatToNormalizedAndLowercase, paginateArray } from 'utils';
+import { Storage, formatToNormalizedAndLowercase, paginateArray } from 'utils';
 
 
 const UserDataContext = createContext<IUserDataContext>(null!);
@@ -19,12 +19,12 @@ export function UserDataContextProvider({ children }: { children: React.ReactNod
   const [totalPages, setTotalPages] = useState(0)
 
 
-  function filterTransactions() {
+  function filterTransactions(incomeTransactions: ITransactions[] = transactions) {
     const byCategory = categoryFilter
     const byYear = yearFilter
     const byCategoryNormalized = byCategory ? formatToNormalizedAndLowercase(byCategory) : undefined
-    const filteredResponse = transactions.filter(({ date, category }) => {
-      const filteredByDate = byYear ? new Date(date).getFullYear() === byYear : transactions
+    const filteredResponse = incomeTransactions.filter(({ date, category }) => {
+      const filteredByDate = byYear ? new Date(date).getFullYear() === byYear : incomeTransactions
       if (!byCategory) return filteredByDate
       const filteredByCategory = formatToNormalizedAndLowercase(category) === byCategoryNormalized
       if (!byYear) return filteredByCategory
@@ -39,7 +39,6 @@ export function UserDataContextProvider({ children }: { children: React.ReactNod
     setPaginatedTransactions(paginatedItems)
     setTotalPages(totalPages)
   }
-
   return (
     <UserDataContext.Provider value={{
       loggedIn, setLoggedIn, user, setUser, transactions, setTransactions,

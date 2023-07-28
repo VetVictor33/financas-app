@@ -1,8 +1,7 @@
-import { format, parse } from 'date-fns'
+import { format } from 'date-fns'
 
-export function formatMoneyFromCentsReturningString(amount: number) {
-  const transformedCents = amount / 100
-  const formattedValue = transformedCents.toLocaleString('pt-BR', {
+export function formatMoneyReturningString(amount: number) {
+  const formattedValue = amount.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
     minimumFractionDigits: 2
@@ -10,13 +9,10 @@ export function formatMoneyFromCentsReturningString(amount: number) {
   return formattedValue
 }
 
-export function formatMoneyFromCentsReturningNumber(amount: number) {
-  const transformedCents = amount / 100
+export function formatMoneyReturningNumber(amount: number) {
+  const transformedCents = amount
   return transformedCents
 }
-
-
-
 
 export function formatToNormalizedAndLowercase(input: string) {
   const normalizedString = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -36,12 +32,13 @@ export function paginateArray(originalArray: Array<any>, itemsPerPage: number, c
 }
 
 export function parseDateFromString(dateString: string) {
-  const [day, month, year] = dateString.split('/');
-  return parse(`${year}-${month}-${day}`, 'yyyy-MM-dd', new Date());
+  return new Date(dateString);
 }
 
 export function formatDate(date: string, pattern: string) {
-  const newDate = parseDateFromString(date)
+  if (date === 'Data') return date
+  const newDate = new Date(date)
+  if (!newDate) return date
   const formattedDate = format(newDate, pattern)
   return formattedDate
 }
