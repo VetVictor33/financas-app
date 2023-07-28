@@ -24,6 +24,7 @@ export function TransactionsChart() {
       xAxis={[{
         id: yearFilter?.toString(),
         label: 'Mês',
+        scaleType: 'log',
         data: yearAxis
       }]}
       series={[

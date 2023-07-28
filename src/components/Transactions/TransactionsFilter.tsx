@@ -3,10 +3,10 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@m
 import { NewTransactionsModal } from 'components/Transactions/NewTransactionsModal';
 import { useUserDataContext } from 'contexts/UserDataContext';
 import { Plus } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 export function TransactionsFilter() {
-  const { transactions,
+  const { transactions, filterTransactions,
     yearFilter, setYearFilter, categoryFilter, setCategoryFilter } = useUserDataContext()
   const uniqueYears = Array.from(new Set(transactions.map(({ date }) => new Date(date).getFullYear())));
   const uniqueCategories = Array.from(new Set(transactions.map(({ category }) => category)));
@@ -22,6 +22,10 @@ export function TransactionsFilter() {
   const handleNewTransactionsModal = () => {
     modalRef.current?.showModal()
   }
+
+  useEffect(() => {
+    filterTransactions()
+  }, [yearFilter, categoryFilter])
 
   return (
     <div className='flex flex-col w-full'>

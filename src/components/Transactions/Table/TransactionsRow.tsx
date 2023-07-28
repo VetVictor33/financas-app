@@ -10,7 +10,7 @@ import { LocalDatabase } from "services"
 
 export function TransactionsRow({ transaction, element = 'td' }: { transaction: ITransactionsTableRows, element?: TransactionCellElementType }) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const { user } = useUserDataContext()
+  const { user, transactions, filterTransactions } = useUserDataContext()
   const { id, category, type, value, date } = transaction!
 
   const colorClass = type ? formatToNormalizedAndLowercase(type!) === 'saida' ?
@@ -39,6 +39,11 @@ export function TransactionsRow({ transaction, element = 'td' }: { transaction: 
   const handleTransactionsDelete = async () => {
     try {
       LocalDatabase.removeTransaction(user.id, id!)
+
+      const localTransactions = [...transactions]
+      const foundIndex = localTransactions.findIndex(({ user_id, id: itemId }) => user_id === user.id && id === itemId)
+      localTransactions.splice(foundIndex, 1)
+      filterTransactions(localTransactions)
       handleDeleteModal()
     } catch (error) {
       //@ts-ignore

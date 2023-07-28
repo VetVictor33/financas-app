@@ -1,13 +1,5 @@
-import { ITransactions, IUserData } from "interfaces";
+import { INewTransaction, ITransactions, IUserData } from "interfaces";
 import { Storage } from "utils";
-
-interface INewTransaction {
-  user_id: number,
-  category: string,
-  type: string,
-  value: number,
-  date: string
-}
 
 export abstract class LocalDatabase {
   public static setUser(username: string) {
@@ -56,6 +48,7 @@ export abstract class LocalDatabase {
       id: transactionId, ...newData
     })
     this.updateTransactionsOnDb(transactions)
+    return { id: transactionId, ...newData }
   }
 
   public static removeTransaction(userId: number, transactionId: number) {

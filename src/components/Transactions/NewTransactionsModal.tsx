@@ -1,7 +1,7 @@
 import { Input } from "components";
 import { useUserDataContext } from "contexts";
+import { ChangeEvent, FormEvent, RefObject, useState } from "react";
 import { LocalDatabase } from "services";
-import { ChangeEvent, FormEvent, RefObject, useState, useEffect } from "react";
 
 type Props = {
   modalRef: RefObject<HTMLDialogElement>,
@@ -16,7 +16,7 @@ type Props = {
 export function NewTransactionsModal({ modalRef,
   incomeId = undefined, incomeCategory = '', incomeType = 'entrada', incomeValue = 0, incomeDate = '', editing = false }: Props) {
 
-  const { user } = useUserDataContext()
+  const { user, transactions, setTransactions, filterTransactions } = useUserDataContext()
 
   const [category, setCategory] = useState(incomeCategory)
   const [type, setType] = useState(incomeType)
@@ -84,14 +84,23 @@ export function NewTransactionsModal({ modalRef,
     try {
       const userId = user.id
       const newTransactionData = { user_id: +userId, category, type, value, date }
+      const localTransactions = [...transactions]
       if (editing) {
         const editedTransaction = LocalDatabase.editTransaction(userId, incomeId!, newTransactionData)
+        const foundIndex = localTransactions.findIndex((transaction) => transaction.id == editedTransaction.id)
+        localTransactions.splice(foundIndex, 1, editedTransaction)
+
         setFeedbackMessage('Editada com sucesso!')
       } else {
         const newTransaction = LocalDatabase.setTransaction(newTransactionData)
+
+        localTransactions.push(newTransaction)
+
         setFeedbackMessage('Adicionada com sucesso!')
         clearForm()
       }
+      setTransactions(localTransactions)
+      filterTransactions(localTransactions)
       setTimeout(() => { setFeedbackMessage('') }, 5000)
     } catch (error) {
       setFeedbackMessage((error as Error).message)

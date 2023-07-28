@@ -7,15 +7,14 @@ import { ChangeEvent, useEffect } from "react"
 
 
 export function TransactionsTable() {
-  const { filterTransactions, paginatedTransactions, filteredTransactions,
-    currentPage, setCurrentPage, yearFilter, categoryFilter, totalPages } = useUserDataContext()
+  const { paginatedTransactions, filterTransactions,
+    currentPage, setCurrentPage, totalPages } = useUserDataContext()
 
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value)
   }
   useEffect(() => {
-    filterTransactions()
-  }, [currentPage, totalPages, yearFilter, categoryFilter])
+  }, [filterTransactions, currentPage, totalPages])
   return (
     <div className="flex flex-col  flex-grow">
       <table className="flex flex-col h-fit p-2 border-zinc-400 my-auto">

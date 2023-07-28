@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { Storage } from "utils";
 
 export function Header() {
-  const { user } = useUserDataContext()
+  const { user, setUser } = useUserDataContext()
+
   const router = useRouter()
 
   const handleLogout = () => {
+    setUser(undefined!)
     Storage.clearSession()
     router.push('/login')
   }
@@ -21,10 +23,8 @@ export function Header() {
         <Image src="./money.svg" alt="logo" width='30' height='30' />
         <ul className="flex gap-1">
           <li className="font-semibold">{user?.username}</li>
-          <li>
-            <button onClick={handleLogout}>
-              Logout
-            </button>
+          <li onClick={handleLogout} className="hover:opacity-75 hover:cursor-pointer">
+            Logout
           </li>
         </ul>
       </div>
