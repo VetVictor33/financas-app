@@ -30,12 +30,12 @@ export abstract class LocalDatabase {
     const allTransactions = this.getTransactionsFromDb()
     const newTransactionsId = Number((Math.floor(Math.random() * 1000)).toString().padEnd(4, '0'))
     allTransactions.push({ id: newTransactionsId, ...newTransaction })
-    const sortedTransactions = allTransactions.toSorted((a, b) => {
+    allTransactions.sort((a, b) => {
       const aDate = new Date(a.date).getTime()
       const bDate = new Date(b.date).getTime()
       return aDate - bDate
     })
-    Storage.setItem('transactions', JSON.stringify(sortedTransactions))
+    Storage.setItem('transactions', JSON.stringify(allTransactions))
 
     return { id: newTransactionsId, ...newTransaction }
   }
