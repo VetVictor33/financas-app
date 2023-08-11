@@ -28,10 +28,14 @@ export abstract class LocalDatabase {
 
   public static setTransaction(newTransaction: INewTransaction) {
     const allTransactions = this.getTransactionsFromDb()
-    const newTransactionsId = allTransactions.length + 1
-
+    const newTransactionsId = Number((Math.floor(Math.random() * 1000)).toString().padEnd(4, '0'))
     allTransactions.push({ id: newTransactionsId, ...newTransaction })
-    Storage.setItem('transactions', JSON.stringify(allTransactions))
+    const sortedTransactions = allTransactions.toSorted((a, b) => {
+      const aDate = new Date(a.date).getTime()
+      const bDate = new Date(b.date).getTime()
+      return aDate - bDate
+    })
+    Storage.setItem('transactions', JSON.stringify(sortedTransactions))
 
     return { id: newTransactionsId, ...newTransaction }
   }

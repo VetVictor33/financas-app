@@ -22,9 +22,9 @@ export function TransactionsTable() {
           <>
             <TransactionsHead head={{ category: 'Tipo', value: 'Valor', date: 'Data' }} />
             <tbody>
-              {paginatedTransactions.map((transaction) => (
-                <TransactionsRow key={transaction.id} transaction={transaction} />
-              ))}
+              {paginatedTransactions.map((transaction) => {
+                return <TransactionsRow key={transaction.id} transaction={transaction} />
+              })}
             </tbody>
           </>
           : ''}

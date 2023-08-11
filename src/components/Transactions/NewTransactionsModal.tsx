@@ -68,7 +68,7 @@ export function NewTransactionsModal({ modalRef,
       setTypeError(true)
       setTypeErrorMessage('Campo obrigatório')
     }
-    if (!value) {
+    if (!value.split('R$ ')[1]) {
       setValueError(true)
       setValueErrorMessage('Campo obrigatório')
     }
@@ -76,7 +76,7 @@ export function NewTransactionsModal({ modalRef,
       setDateError(true)
       setDateErrorMessage('Campo obrigatório')
     }
-    if (!category || !type || !value || !date) {
+    if (!category || !type || !value.split('R$ ')[1] || !date) {
       setFeedbackMessage('Faltam campos obrigatórios')
       return
     }
@@ -96,18 +96,24 @@ export function NewTransactionsModal({ modalRef,
         const newTransaction = LocalDatabase.setTransaction(newTransactionData)
 
         localTransactions.push(newTransaction)
+        localTransactions.sort((a, b) => {
+          const aDate = new Date(a.date).getTime()
+          const bDate = new Date(b.date).getTime()
+          return aDate - bDate
+        })
 
         setFeedbackMessage('Adicionada com sucesso!')
-        clearForm()
       }
       setTransactions(localTransactions)
       filterTransactions(localTransactions)
-      setTimeout(() => {
-        setFeedbackMessage('')
-        modalRef.current?.close()
-      }, 2000)
     } catch (error) {
       setFeedbackMessage((error as Error).message)
+    } finally {
+      setTimeout(() => {
+        setFeedbackMessage('')
+        if (!editing) clearForm()
+        modalRef.current?.close()
+      }, 1500)
     }
   }
 
