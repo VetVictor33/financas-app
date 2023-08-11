@@ -16,8 +16,8 @@ export function TransactionsTable() {
   useEffect(() => {
   }, [filterTransactions, currentPage, totalPages])
   return (
-    <div className="flex flex-col  flex-grow">
-      <table className="flex flex-col h-fit p-2 border-zinc-400 my-auto">
+    <div className="flex flex-col flex-grow">
+      <table className="flex flex-col flex-grow p-2 border-zinc-400 my-auto">
         {paginatedTransactions ?
           <>
             <TransactionsHead head={{ category: 'Tipo', value: 'Valor', date: 'Data' }} />

@@ -38,7 +38,7 @@ export function TransactionsResume() {
 
 
   return (
-    <div className="flex flex-grow-0 justify-around  my-2 py-4 px-2 rounded bg-slate-300 uppercase gap-1
+    <div className="flex flex-grow-0 justify-around h-fit  my-2 py-4 px-2 rounded bg-slate-300 uppercase gap-1
     overflow-hidden overflow-ellipsis hover:overflow-visible ">
       <div className="w-1/2 rounded-lg itens-center bg-slate-600 bg-opacity-30 p-1">
         <p className="text-xs">Filtro:</p>

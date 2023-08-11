@@ -38,15 +38,22 @@ export default function Home() {
     <>
       <Header />
       <div className='bg-cyan-800 rounded-t-3xl p-6 flex flex-col flex-grow'>
-        <TransactionsFilter />
-        <div className='flex flex-col flex-grow'>
-          {mainContentIndex === 0 ?
-            <TransactionsTable />
-            :
-            <TransactionsChart />
-          }
+        <div className='flex flex-col flex-grow gap-2
+        md:flex-row'>
+          <div className='flex flex-col flex-grow'>
+            <TransactionsFilter />
+            <div className='flex flex-col flex-grow'>
+              {mainContentIndex === 0 ?
+                <TransactionsTable />
+                :
+                <TransactionsChart />
+              }
+            </div>
+          </div>
+          <div className='lg:w-1/3'>
+            <TransactionsResume />
+          </div>
         </div>
-        <TransactionsResume />
       </div>
     </>
   )
