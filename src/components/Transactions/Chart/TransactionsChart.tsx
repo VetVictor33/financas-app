@@ -2,7 +2,7 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Alert } from '@mui/material';
 import { useUserDataContext } from 'contexts/UserDataContext';
-import { formatDate, formatMoneyReturningNumber } from 'utils';
+import { formatDate, formatMoneyFromCents } from 'utils';
 import { useEffect } from 'react'
 
 export function TransactionsChart() {
@@ -10,7 +10,7 @@ export function TransactionsChart() {
 
 
   const yearAxis = filteredTransactions.map((({ date }) => +formatDate(date, "MM")))
-  const valueAxis = filteredTransactions.map(({ value }) => formatMoneyReturningNumber(value))
+  const valueAxis = filteredTransactions.map(({ value }) => formatMoneyFromCents(value))
 
   useEffect(() => {
     filterTransactions()

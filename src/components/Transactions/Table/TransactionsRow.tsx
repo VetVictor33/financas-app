@@ -2,7 +2,7 @@ import { EditIcon, DeleteIcon } from "assets"
 import { NewTransactionsModal, TransactionsCell } from "components"
 import { ITransactionsTableRows } from "interfaces"
 import { TransactionCellElementType } from "types"
-import { Storage, formatDate, formatMoneyReturningString, formatToNormalizedAndLowercase } from "utils"
+import { Storage, formatDate, formatMoneyReturningCurrencyString, formatToNormalizedAndLowercase } from "utils"
 import { useState, useRef } from 'react'
 import { useUserDataContext } from "contexts"
 import { LocalDatabase } from "services"
@@ -18,7 +18,7 @@ export function TransactionsRow({ transaction, element = 'td' }: { transaction: 
 
   const numberSign = colorClass === 'outcome font-semibold' ? -1 : 1
 
-  const formattedValue = isNaN(+value) ? value as string : formatMoneyReturningString(
+  const formattedValue = isNaN(+value) ? value as string : formatMoneyReturningCurrencyString(
     +value * numberSign)
   const formattedDate = formatDate(date, 'dd/MM/yyyy')
 

@@ -2,25 +2,25 @@ import { Input } from "components";
 import { useUserDataContext } from "contexts";
 import { ChangeEvent, FormEvent, RefObject, useState } from "react";
 import { LocalDatabase } from "services";
+import { formatMoneyInput, formatMoneyToCents } from "utils";
 
 type Props = {
   modalRef: RefObject<HTMLDialogElement>,
   incomeId?: number | undefined,
   incomeCategory?: string,
   incomeType?: string,
-  incomeValue?: number,
+  incomeValue?: string,
   incomeDate?: string,
   editing?: boolean
 }
 
 export function NewTransactionsModal({ modalRef,
-  incomeId = undefined, incomeCategory = '', incomeType = 'entrada', incomeValue = 0, incomeDate = '', editing = false }: Props) {
-
+  incomeId = undefined, incomeCategory = '', incomeType = 'entrada', incomeValue = '', incomeDate = '', editing = false }: Props) {
   const { user, transactions, setTransactions, filterTransactions } = useUserDataContext()
 
   const [category, setCategory] = useState(incomeCategory)
   const [type, setType] = useState(incomeType)
-  const [value, setValue] = useState(incomeValue)
+  const [value, setValue] = useState(incomeValue ? formatMoneyInput(`R$ ${+incomeValue / 100}`, '') : 'R$ ')
   const [date, setDate] = useState(incomeDate)
 
   const [categoryError, setCategoryError] = useState(false)
@@ -36,24 +36,24 @@ export function NewTransactionsModal({ modalRef,
   const [feedbackMessage, setFeedbackMessage] = useState('')
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const [name, value] = [e.target.name, e.target.value]
+    const [inputName, inputValue] = [e.target.name, e.target.value]
 
     setFeedbackMessage('')
-    switch (name) {
+    switch (inputName) {
       case 'category':
-        setCategory(value)
+        setCategory(inputValue)
         setCategoryError(false)
         break
       case 'type':
-        setType(value)
+        setType(inputValue)
         setTypeError(false)
         break
       case 'value':
-        setValue(+value)
+        setValue(formatMoneyInput(inputValue, value))
         setValueError(false)
         break
       case 'date':
-        setDate(value)
+        setDate(inputValue)
         setDateError(false)
     }
   }
@@ -83,7 +83,8 @@ export function NewTransactionsModal({ modalRef,
 
     try {
       const userId = user.id
-      const newTransactionData = { user_id: +userId, category, type, value, date }
+      const valueInCents = formatMoneyToCents(value)
+      const newTransactionData = { user_id: +userId, category, type, value: valueInCents, date }
       const localTransactions = [...transactions]
       if (editing) {
         const editedTransaction = LocalDatabase.editTransaction(userId, incomeId!, newTransactionData)
@@ -101,7 +102,10 @@ export function NewTransactionsModal({ modalRef,
       }
       setTransactions(localTransactions)
       filterTransactions(localTransactions)
-      setTimeout(() => { setFeedbackMessage('') }, 5000)
+      setTimeout(() => {
+        setFeedbackMessage('')
+        modalRef.current?.close()
+      }, 2000)
     } catch (error) {
       setFeedbackMessage((error as Error).message)
     }
@@ -109,15 +113,16 @@ export function NewTransactionsModal({ modalRef,
 
   function clearForm() {
     setCategory('')
-    setValue(0)
+    setValue(`R$ ${incomeValue}`)
     setDate('')
   }
 
   return (
-    <dialog ref={modalRef} className="w-2/3 h-fit z-10 rounded-lg relative">
+    <dialog ref={modalRef} className="w-2/3 h-fit z-10 rounded-lg relative backdrop:backdrop-blur-sm">
       <div className="p-5">
-        <button className="absolute right-3 top-3 hover:cursor-pointer hover:opacity-75 p-2"
-          onClick={() => modalRef.current?.close()}>x</button>
+        < button className="absolute right-3 top-3 hover:cursor-pointer hover:opacity-75 p-2"
+          onClick={() => modalRef.current?.close()
+          }> x</button >
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <Input label="Tipo" inputClassName={'bg-black'}
             name="category"
@@ -135,7 +140,7 @@ export function NewTransactionsModal({ modalRef,
           </div>
           <Input label="Valor" inputClassName={'bg-black'}
             name="value"
-            type="number"
+            type="text"
             value={value}
             onChange={handleInputChange}
             error={valueError}
@@ -158,7 +163,7 @@ export function NewTransactionsModal({ modalRef,
               "Criar"}
           </button>
         </form>
-      </div>
-    </dialog>
+      </div >
+    </dialog >
   )
 }

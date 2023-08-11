@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 
-export function formatMoneyReturningString(amount: number) {
-  const formattedValue = amount.toLocaleString('pt-BR', {
+export function formatMoneyReturningCurrencyString(amount: number) {
+  const formattedValue = (amount / 100).toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
     minimumFractionDigits: 2
@@ -9,9 +9,28 @@ export function formatMoneyReturningString(amount: number) {
   return formattedValue
 }
 
-export function formatMoneyReturningNumber(amount: number) {
-  const transformedCents = amount
+export function formatMoneyFromCents(amount: number) {
+  const transformedCents = amount / 100
   return transformedCents
+}
+
+export function formatMoneyInput(amount: string, oldValue: string) {
+  const [sign, value] = amount.split('R$ ')
+  if (!value) return oldValue
+  const formattedValue = value.replace(',', '.')
+  if (isNaN(+formattedValue)) return oldValue
+  const formattedAmount = amount.replace('.', ',')
+  if (formattedAmount.indexOf(',') === -1) {
+    return `${formattedAmount},00`
+  }
+  return formattedAmount
+}
+
+export function formatMoneyToCents(amount: string) {
+  const [sign, value] = amount.split('R$ ')
+  const formattedValue = value.replace(',', '.')
+  const cents = +formattedValue * 100
+  return cents
 }
 
 export function formatToNormalizedAndLowercase(input: string) {

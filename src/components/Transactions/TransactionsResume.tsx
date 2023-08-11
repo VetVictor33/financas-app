@@ -1,7 +1,7 @@
 'use client'
 
 import { useUserDataContext } from "contexts/UserDataContext"
-import { formatMoneyReturningString, formatToNormalizedAndLowercase } from "utils"
+import { formatMoneyReturningCurrencyString, formatToNormalizedAndLowercase } from "utils"
 
 export function TransactionsResume() {
   const { transactions, filteredTransactions } = useUserDataContext()
@@ -44,24 +44,24 @@ export function TransactionsResume() {
         <p className="text-xs">Filtro:</p>
         <div className="font-mono">
           <p>Entradas: </p>
-          <p className="income">{formatMoneyReturningString(paginatedIncome)}</p>
+          <p className="income">{formatMoneyReturningCurrencyString(paginatedIncome)}</p>
           <p>Saídas: </p>
-          <p className="outcome">{formatMoneyReturningString(-1 * paginatedOutcome)}</p>
+          <p className="outcome">{formatMoneyReturningCurrencyString(-1 * paginatedOutcome)}</p>
           <p>Saldo: </p>
           <p className={paginatedBalance >= 0 ? 'income' : 'outcome'}>
-            {formatMoneyReturningString(numberSign * paginatedBalance)} </p>
+            {formatMoneyReturningCurrencyString(numberSign * paginatedBalance)} </p>
         </div>
       </div>
       <div className="w-1/2 rounded-lg bg-slate-600 bg-opacity-30 p-1">
         <p className="text-xs">Total:</p>
         <div className="font-mono">
           <p>Entradas: </p>
-          <p className="income">{formatMoneyReturningString(totalIncome)}</p>
+          <p className="income">{formatMoneyReturningCurrencyString(totalIncome)}</p>
           <p>Saídas: </p>
-          <p className="outcome">{formatMoneyReturningString(-1 * totalOutcome)}</p>
+          <p className="outcome">{formatMoneyReturningCurrencyString(-1 * totalOutcome)}</p>
           <p>Saldo: </p>
           <p className={totalBalance >= 0 ? 'income' : 'outcome'}>
-            {formatMoneyReturningString(numberSign * totalBalance)} </p>
+            {formatMoneyReturningCurrencyString(numberSign * totalBalance)} </p>
         </div>
       </div>
     </div>
