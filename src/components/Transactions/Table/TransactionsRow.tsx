@@ -20,7 +20,7 @@ export function TransactionsRow({ transaction, element = 'td' }: { transaction: 
 
   const formattedValue = isNaN(+value) ? value as string : formatMoneyReturningCurrencyString(
     +value * numberSign)
-  const formattedDate = formatDate(date, 'dd/MM/yyyy')
+  const formattedDate = formatDate(date)
 
   const ElementTag = element as keyof JSX.IntrinsicElements;
 
@@ -93,7 +93,7 @@ export function TransactionsRow({ transaction, element = 'td' }: { transaction: 
             incomeCategory={category}
             incomeDate={date}
             incomeType={type}
-            incomeValue={+value} />
+            incomeValue={value} />
         </ElementTag> :
         <ElementTag className='w-10' />
       }

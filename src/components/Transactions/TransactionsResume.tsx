@@ -38,9 +38,9 @@ export function TransactionsResume() {
 
 
   return (
-    <div className="flex flex-grow-0 justify-around h-fit  my-2 py-4 px-2 rounded bg-slate-300 uppercase gap-1
+    <div className="flex flex-grow-0 justify-around h-fit p-2 rounded-xl bg-slate-300 uppercase gap-2
     overflow-hidden overflow-ellipsis hover:overflow-visible ">
-      <div className="w-1/2 rounded-lg itens-center bg-slate-600 bg-opacity-30 p-1">
+      <div className="w-1/2 rounded-lg itens-center bg-slate-600 bg-opacity-30 p-2">
         <p className="text-xs">Filtro:</p>
         <div className="font-mono">
           <p>Entradas: </p>
@@ -52,7 +52,7 @@ export function TransactionsResume() {
             {formatMoneyReturningCurrencyString(numberSign * paginatedBalance)} </p>
         </div>
       </div>
-      <div className="w-1/2 rounded-lg bg-slate-600 bg-opacity-30 p-1">
+      <div className="w-1/2 rounded-lg bg-slate-600 bg-opacity-30 p-2">
         <p className="text-xs">Total:</p>
         <div className="font-mono">
           <p>Entradas: </p>

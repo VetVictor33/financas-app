@@ -54,10 +54,12 @@ export function parseDateFromString(dateString: string) {
   return new Date(dateString);
 }
 
-export function formatDate(date: string, pattern: string) {
-  if (date === 'Data') return date
-  const newDate = new Date(date)
-  if (!newDate) return date
-  const formattedDate = format(newDate, pattern)
-  return formattedDate
+export function formatDate(date: string, pattern?: string) {
+  const parts = date.split("-");
+  const year = parts[0];
+  const month = parts[1];
+  const day = parts[2];
+  if (pattern) return month
+  const transformedDate = `${day}/${month}/${year}`;
+  return date.indexOf('-') !== -1 ? transformedDate : date;
 }

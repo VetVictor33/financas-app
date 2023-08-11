@@ -42,11 +42,11 @@ export default function Home() {
         md:flex-row'>
           <div className='flex flex-col flex-grow'>
             <TransactionsFilter />
-            <div className='flex flex-col flex-grow'>
-              {mainContentIndex === 0 ?
-                <TransactionsTable />
-                :
+            <div className={`flex flex-col ${mainContentIndex ? 'h-1/2' : 'flex-grow'}`}>
+              {mainContentIndex ?
                 <TransactionsChart />
+                :
+                <TransactionsTable />
               }
             </div>
           </div>

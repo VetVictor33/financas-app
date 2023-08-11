@@ -9,7 +9,7 @@ export function TransactionsChart() {
   const { filteredTransactions, filterTransactions, yearFilter, categoryFilter } = useUserDataContext()
 
 
-  const yearAxis = filteredTransactions.map((({ date }) => +formatDate(date, "MM")))
+  const yearAxis = filteredTransactions.map((({ date }) => formatDate(date, "MM")))
   const valueAxis = filteredTransactions.map(({ value }) => formatMoneyFromCents(value))
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function TransactionsChart() {
       xAxis={[{
         id: yearFilter?.toString(),
         label: 'Mês',
-        scaleType: 'log',
+        scaleType: 'band',
         data: yearAxis
       }]}
       series={[

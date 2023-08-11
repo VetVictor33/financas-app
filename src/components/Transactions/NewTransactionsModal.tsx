@@ -9,7 +9,7 @@ type Props = {
   incomeId?: number | undefined,
   incomeCategory?: string,
   incomeType?: string,
-  incomeValue?: string,
+  incomeValue?: string | number,
   incomeDate?: string,
   editing?: boolean
 }
