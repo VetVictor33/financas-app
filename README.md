@@ -1,5 +1,5 @@
-# finanças app WIP
+# Finanças App
 
-## Rodar o json server
+App de finanças desenvolvido com NextJs, TypeScript e Tailwind!
 
-json-server db.json -m ./node_modules/json-server-auth --port 3001
+[Deploy](https://victors-financas-app.netlify.app/login)
