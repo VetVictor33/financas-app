@@ -14,7 +14,8 @@ export function TransactionsTable() {
     setCurrentPage(value)
   }
   useEffect(() => {
-  }, [filterTransactions, currentPage, totalPages])
+    filterTransactions()
+  }, [currentPage, totalPages])
   return (
     <div className="flex flex-col flex-grow">
       <table className="flex flex-col flex-grow p-2 border-zinc-400 my-auto">
