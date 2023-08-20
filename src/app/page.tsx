@@ -42,7 +42,7 @@ export default function Home() {
         md:flex-row'>
           <div className='flex flex-col flex-grow'>
             <TransactionsFilter />
-            <div className={`flex flex-col ${mainContentIndex ? 'h-1/2' : 'flex-grow'}`}>
+            <div className={`flex flex-col ${mainContentIndex ? 'flex-1 md:flex-none md:h-1/2 lg:h-2/3' : 'flex-grow'}`}>
               {mainContentIndex ?
                 <TransactionsChart />
                 :

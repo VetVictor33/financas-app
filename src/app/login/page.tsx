@@ -55,7 +55,7 @@ export default function Login() {
 
   return (
     <div className="h-screen flex justify-center items-center text-white">
-      <form className="bg-indigo-900 w-3/4 flex flex-col rounded-lg px-6 py-16 gap-2"
+      <form className="bg-indigo-900 w-3/4 flex flex-col rounded-lg px-6 py-16 gap-2 md:w-1/4 md:py-6"
         onSubmit={handleSubmit}>
         <Input
           name="username"

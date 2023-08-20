@@ -12,6 +12,8 @@ export function TransactionsChart() {
   const yearAxis = filteredTransactions.map((({ date }) => formatDate(date, "MM")))
   const valueAxis = filteredTransactions.map(({ value }) => formatMoneyFromCents(value))
 
+  const isNegative = filteredTransactions.find(({ type }) => type === 'saida')
+
   useEffect(() => {
     filterTransactions()
   }, [yearFilter, categoryFilter])
@@ -20,12 +22,12 @@ export function TransactionsChart() {
   if ((!yearAxis.length || !valueAxis.length)) return (
     <Alert severity='info' className='mt-2'>Não há dados para essa série</Alert>)
   return (
-    <LineChart
+    <LineChart className='min-h-full'
       xAxis={[{
         id: yearFilter?.toString(),
         label: 'Mês',
         scaleType: 'band',
-        data: yearAxis
+        data: yearAxis,
       }]}
       series={[
         {
@@ -33,6 +35,7 @@ export function TransactionsChart() {
           data: valueAxis,
           label: categoryFilter,
           area: true,
+          color: isNegative ? '#DC2626' : '#2563EB'
         },
       ]}
       sx={{
